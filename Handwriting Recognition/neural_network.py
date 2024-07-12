@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # Adjust chunk size and dtype as needed
 chunk_size = 1000
-chunks = pd.read_csv('alphabets.csv', chunksize=chunk_size, low_memory=False)
+chunks = pd.read_csv('alphabets_28x28.csv', chunksize=chunk_size, low_memory=False)
 
 # Initialize lists to store chunks
 x_chunks = []
@@ -17,7 +17,7 @@ y_chunks = []
 
 # Process each chunk
 for chunk in chunks:
-   # chunk = chunk.dropna()
+     chunk = chunk.dropna()
      
     # Extract features (assuming features start from the second column)
     x_chunk = chunk.iloc[:, 1:].values.astype(np.float32)  # Features
