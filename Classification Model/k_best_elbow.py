@@ -1,3 +1,4 @@
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,12 +15,32 @@ k_values = range(2, 33)  # Adjust the range as needed
 # Initialize list to store inertia values
 inertia_values = []
 
+# Function to calculate the inertia (sum of squared distances to the nearest centroid)
+def calculate_inertia(points, centroids, labels):
+    distances = np.sqrt(((points - centroids[labels])**2).sum(axis=1))
+    return np.sum(distances)
+
+# K-means algorithm to find the optimal centroids and labels
+def kmeans(points, k, max_iterations=100):
+    # Randomly initialize the centroids
+    centroids = points[np.random.choice(points.shape[0], k, replace=False)]
+    for _ in range(max_iterations):
+        # Calculate distances from points to centroids
+        distances = np.sqrt(((points - centroids[:, np.newaxis])**2).sum(axis=2))
+        # Assign each point to the nearest centroid
+        labels = np.argmin(distances, axis=0)
+        # Calculate new centroids as the mean of the points in each cluster
+        new_centroids = np.array([points[labels == i].mean(axis=0) for i in range(k)])
+        # Check for convergence (if centroids do not change)
+        if np.all(centroids == new_centroids):
+            break
+        centroids = new_centroids
+    return centroids, labels
+
 # Calculate inertia for each k
 for k in k_values:
-    centroids = points[np.random.choice(points.shape[0], k, replace=False)]
-    distances = np.sqrt(((points - centroids[:, np.newaxis])**2).sum(axis=2))
-    labels = np.argmin(distances, axis=0)
-    inertia = sum(np.min(distances, axis=0))
+    centroids, labels = kmeans(points, k)
+    inertia = calculate_inertia(points, centroids, labels)
     inertia_values.append(inertia)
 
 # Plotting the Elbow Method (Inertia)
