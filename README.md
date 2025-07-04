@@ -1,4 +1,4 @@
-I have divided the work into 3 parts:
+
 CLASSIFICATION_MODEL :
    This cointains data filtering and visualization.
    data_filtering.py filters the data and obtains only the telanagana pincodes
