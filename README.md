@@ -14,5 +14,5 @@ HANDWRITING_RECOGNITION :
    try_with_given_images.py processes the input image and store the result in a csv file.
 
 sentiment_analysis :
-   sentiment_analysis.py contains the code for training and obtaining results.
+   sentiment_analysis.py contains the code for training and determining the mood of the senstence.
    the sentiments are stored in lines_with_sentiments.csv
